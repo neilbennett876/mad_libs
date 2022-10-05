@@ -1,4 +1,6 @@
-#Mad libs template
+import json
+import os
+
 class MadLibs:
     def __init__(self, word_descriptions, template):
         self.template = template
@@ -19,9 +21,14 @@ def build_story(template, words):
     story = template.format(*words)
     return story
 
+def get_template(name, path='./templates'):
+    file_path = os.path.join(path, name)
+    print(file_path)
 
-template = 'I own a big {}. I like to {}'
-words = get_words_from_user(['noun', 'verb'])
-story = build_story(template, words)
+temp_name = "zoo_day.json"
+get_template(temp_name)
+# template = 'I own a big {}. I like to {}'
+# words = get_words_from_user(['noun', 'verb'])
+# story = build_story(template, words)
 
-print(story)
+# print(story)
