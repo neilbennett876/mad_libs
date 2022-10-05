@@ -5,7 +5,14 @@ class MadLibs:
     def __init__(self, word_descriptions, template):
         self.template = template
         self.word_descriptions = word_descriptions
-    
+
+    @classmethod
+    def from_json(cls, name, path='./templates'):
+        file_path = os.path.join(path, name)
+        with open(file_path, "r") as f:
+            data = json.load(f)
+        mad_lib = cls(**data)
+        return mad_lib
 
 def get_words_from_user(word_descriptions):
     words = []
@@ -21,14 +28,10 @@ def build_story(template, words):
     story = template.format(*words)
     return story
 
-def get_template(name, path='./templates'):
-    file_path = os.path.join(path, name)
-    print(file_path)
 
 temp_name = "zoo_day.json"
-get_template(temp_name)
-# template = 'I own a big {}. I like to {}'
-# words = get_words_from_user(['noun', 'verb'])
-# story = build_story(template, words)
+mad_lib = MadLibs.from_json(temp_name)
+words = get_words_from_user(mad_lib.word_descriptions)
+story = build_story(mad_lib.template, words)
 
-# print(story)
+print(story)
